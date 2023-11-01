@@ -1,8 +1,14 @@
 class Paciente:
-    "clase paciente"
-    def __init__(self, nombre, clasificacion):
-        self.nombre=nombre
-        self.clasificacion=clasificacion
-        self.tiempo_espera=0
-        self.sintomas=""
-        self.tiempo_promedio=0
+    """calse paciente"""
+
+    def __init__(self, nombre, edad, sintomas: []):
+        self.nombre = nombre
+        self.edad = edad
+        self.clasificacion = ""
+        self.tiempo_espera = 0
+        self.sintomas = sintomas
+
+    def llamar(self):
+        """hola"""
+
+        return "hola"

@@ -7,6 +7,7 @@ class Medico:
         self.estado=estado
     
     def atender(self, paciente=Paciente):
+        """clase medico"""
         if paciente.clasificacion == "naranja" or paciente.clasificacion == "amarillo":
             derivar(paciente)
             frenar_tiempo()
@@ -22,11 +23,14 @@ class Medico:
 
 
 def derivar(paciente=Paciente):
+    """clase medico"""
     paciente.clasificacion=0
-    pass
+    ##pass
 
-def ir_a_casa():  
-    pass
+def ir_a_casa():
+    """clase medico"""  
+    ##pass
 
 def frenar_tiempo():
-    pass
+    """clase medico"""
+    ##pass
