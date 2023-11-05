@@ -1,7 +1,8 @@
 """importamos la clase paciente"""
 import csv
-from cMedico import Medico
-from cPaciente import Paciente
+# from src.cMedico import Medico
+from src.cPaciente import Paciente
+from src.cEnfermero import Enfermero
 
 
 class Guardia:
@@ -10,12 +11,13 @@ class Guardia:
     def __init__(self, nombre, capacidad):
         self.nombre = nombre
         self.capacidad = capacidad
-        self.lista_pacientes = [Paciente]
-        self.medicos_activos = [Medico]
+        self.lista_archivo: Paciente = []
+        self.lista_pacientes: Paciente = []
+        self.medicos_activos = 0
 
     def leer_archivo(self):
-
-        with open("src/Pacientes.csv") as file:
+        """leemos el archivo"""
+        with open("src/Pacientes.csv", "r") as file:
             reader = csv.reader(file, delimiter=',')
             next(file, None)
 
@@ -25,60 +27,49 @@ class Guardia:
                 sintomas_1 = row[2]
                 sintomas_2 = row[3]
                 sintomas_3 = row[4]
-                sintomas_4 = row[3]
+                sintomas_4 = row[5]
 
                 sintomas = [sintomas_1, sintomas_2, sintomas_3, sintomas_4]
                 aux = Paciente(nombre, edad, sintomas)
-                self.lista_pacientes.append(aux)
+                self.lista_archivo.append(aux)
 
-    def armar_lista(self, paciente):
-        """funcion que arma la lista"""
-        if paciente.clasificacion == "rojo":
-            return "El paciente es prioridad 1"
+    def set_med_activos(self, cant):
+        """set de medicos activos"""
+        self.medicos_activos = cant
 
-        self.lista_pacientes.append(paciente)
+    def armar_lista(self, pacientes):
+        """Función para clasificar y ordenar la lista de pacientes"""
+        if not pacientes:
+            return pacientes
 
-        if len(self.lista_pacientes) <= 1:
-            return self.lista_pacientes
-        else:
-            mitad = len(self.lista_pacientes) // 2
-            izquierda = self.lista_pacientes[:mitad]
-            derecha = self.lista_pacientes[mitad:]
+        # Dividir la lista en dos mitades
+        mitad = len(pacientes) // 2
+        izquierda = pacientes[:mitad]
+        derecha = pacientes[mitad:]
 
+        # Llamadas recursivas para ordenar las mitades
         izquierda_ordenada = self.armar_lista(izquierda)
         derecha_ordenada = self.armar_lista(derecha)
 
-        lista_ordenada = self.mayor(izquierda_ordenada, derecha_ordenada)
-        return lista_ordenada
+        # Combinar las mitades ordenadas usando el algoritmo de Merge Sort
+        return self.merge(izquierda_ordenada, derecha_ordenada)
 
-    def mayor(self, izquierda, derecha):
-        """funcion para verificar quien es mayor"""
+    def merge(self, izquierda: Paciente, derecha: Paciente):
+        """Función para combinar dos listas ordenadas"""
         resultado = []
+        i = j = 0
 
-        tiempo_izq = self.evaluar_tiempo(izquierda[0])
-        tiempo_derecha = self.evaluar_tiempo(derecha[0])
+        # Comparar elementos y combinar las listas ordenadas
+        while i < len(izquierda) and j < len(derecha):
+            if izquierda.significado_del_tiempo()[i] <= derecha.significado_del_tiempo()[i]:
+                resultado.append(izquierda[i])
+                i += 1
+            else:
+                resultado.append(derecha[j])
+                j += 1
 
-        if tiempo_izq <= tiempo_derecha:
-            resultado.append(izquierda)
-            resultado.append(derecha)
-        else:
-            resultado.append(derecha)
-            resultado.append(izquierda)
+        # Agregar los elementos restantes, si los hay
+        resultado.extend(izquierda[i:])
+        resultado.extend(derecha[j:])
 
         return resultado
-
-    def evaluar_tiempo(self, paciente):
-        """funcion para verificar el tiemp"""
-        tiempo_naranja = 10
-        tiempo_amarillo = 60
-        tiempo_verde = 120
-        tiempo_azul = 240
-
-        if paciente.clasificacion == "naranja":
-            return tiempo_naranja - paciente.tiempo_espera
-        elif paciente.clasificacion == "amarillo":
-            return tiempo_amarillo - paciente.tiempo_espera
-        elif paciente.clasificacion == "verde":
-            return tiempo_verde - paciente.tiempo_espera
-        elif paciente.clasificacion == "azul":
-            return tiempo_azul - paciente.tiempo_espera

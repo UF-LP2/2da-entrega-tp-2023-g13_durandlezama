@@ -1,37 +1,83 @@
-from binarytree import Node
+
+class Node:
+    """clase de arbol"""
+
+    def __init__(self, nombre, left=None, right=None):
+        self.nombre = nombre
+        self.left = left
+        self.right = right
+
+    def _str_(self):
+        return str(self.nombre)
 
 
-def arbol_sintomas():
+def arbol_sintomas() -> Node:
     """arbol de sintomas"""
-    dif_respiar = Node(5)
 
-    perdida_sangre = Node(2)
-    inconciente = Node(1)
-    sudoracion = Node(3)
-    espuma_boca = Node(4)
+    dif_respiar = Node("dificultad para respirar")
+    perdida_sangre = Node("perdida de sangre externa")
+    inconciente = Node("inconciente")
+    sudoracion = Node("sudoracion")
+    espuma_boca = Node("espuma_boca")
 
-    nauseas_vomitos = Node(10)
-    dolor = Node(7)
-    desmayo = Node(6)
-    perdida_fuerza = Node(8)
-    golpe = Node(11)
-    psicologica = Node(9)
-    fiebre = Node(12)
-    picazon = Node(13)
-    no_urgente = Node(14)
+    nauseas_vomitos = Node("nauseas y vomitos")
+    dolor = Node("dolor")
+    desmayo = Node("desmayo")
+    perdida_fuerza = Node("perdida de fuerza")
+    golpe = Node("golpe")
+    psicologica = Node("psicologica")
+    fiebre = Node("fiebre")
+    picazon = Node("picazon")
+    no_urgente = Node("no es urgente")
 
-    perdida_sangre.left = dif_respiar
-    inconciente.left = perdida_sangre
-    sudoracion.right = perdida_sangre
-    espuma_boca.right = sudoracion
+    rojo = Node("rojo")
+    amarillo = Node("amarillo")
+    naranja = Node("naranja")
+    verde = Node("verde")
+    azul = Node("azul")
 
-    nauseas_vomitos.left = dif_respiar
-    dolor.left = nauseas_vomitos
-    desmayo.left = dolor
-    perdida_fuerza.right = dolor
-    psicologica.right = perdida_fuerza
+    dif_respiar.left = perdida_sangre
+    dif_respiar.right = nauseas_vomitos
 
-    golpe.right = nauseas_vomitos
-    fiebre.right = golpe
-    picazon.right = fiebre
-    no_urgente.right = picazon
+    perdida_sangre.left = inconciente
+    perdida_sangre.right = sudoracion
+
+    inconciente.left = rojo
+    inconciente.right = naranja
+
+    sudoracion.left = naranja
+    sudoracion.right = espuma_boca
+
+    espuma_boca.left = naranja
+    espuma_boca.right = amarillo
+
+    # lado izquirdo
+
+    nauseas_vomitos.left = dolor
+    nauseas_vomitos.right = golpe
+
+    dolor.left = desmayo
+    dolor.right = perdida_fuerza
+
+    desmayo.left = amarillo
+    desmayo.right = amarillo
+
+    perdida_fuerza.left = amarillo
+    perdida_fuerza.right = psicologica
+
+    psicologica.left = amarillo
+    psicologica.right = verde
+
+    golpe.left = verde
+    golpe.right = fiebre
+
+    fiebre.left = verde
+    fiebre.right = picazon
+
+    picazon.left = verde
+    picazon.right = no_urgente
+
+    no_urgente.left = azul
+    no_urgente.right = azul
+
+    return dif_respiar

@@ -1,11 +1,13 @@
-from cPaciente import Paciente
+from src.cPaciente import Paciente
+
 
 class Medico:
     """clase medico"""
+
     def __init__(self, nombre, estado):
-        self.nombre=nombre 
-        self.estado=estado
-    
+        self.nombre = nombre
+        self.estado = estado
+
     def atender(self, paciente=Paciente):
         """clase medico"""
         if paciente.clasificacion == "naranja" or paciente.clasificacion == "amarillo":
@@ -24,13 +26,15 @@ class Medico:
 
 def derivar(paciente=Paciente):
     """clase medico"""
-    paciente.clasificacion=0
-    ##pass
+    paciente.clasificacion = 0
+    # pass
+
 
 def ir_a_casa():
-    """clase medico"""  
-    ##pass
+    """clase medico"""
+    # pass
+
 
 def frenar_tiempo():
     """clase medico"""
-    ##pass
+    # pass
