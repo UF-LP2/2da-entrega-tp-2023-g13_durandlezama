@@ -5,11 +5,11 @@ from datetime import datetime
 class Paciente:
     """calse paciente"""
 
-    def __init__(self, nombre, edad, sintomas: [str], tiempo_ingreso: datetime = 0):
+    def __init__(self, nombre, edad, sintomas: [str]):
         self.nombre = nombre
         self.edad = edad
         self.clasificacion = ""
-        self.tiempo_ingreso = tiempo_ingreso  # tiempo en el que ingreso
+        self.tiempo_ingreso: datetime = 0  # tiempo en el que ingreso
         self.tiempo_max = 0
         self.sintomas = sintomas
 
@@ -21,7 +21,7 @@ class Paciente:
 
     def significado_del_tiempo(self) -> int:
         """funciones de tiempo"""
-        minpasados: int = self.tiempo_esperando().second*5
+        minpasados: int = self.tiempo_esperando().seconds*5
         return (self.tiempo_max-minpasados)
 
     def set_tiempo_max(self):

@@ -2,7 +2,6 @@
 import random
 from src.cGuardia import Guardia
 from src.cEnfermero import Enfermero
-from src.cPaciente import Paciente
 
 
 def main() -> None:
@@ -12,16 +11,18 @@ def main() -> None:
     guardia_sm.leer_archivo()
     enfermero = Enfermero("Maria", "5/12")
 
-    for i in range(len(guardia_sm.lista_archivo)):
-        guardia_sm.medicos_activos = random.randint(1, 10)
+    while guardia_sm.lista_archivo:
+
+        guardia_sm.medicos_activos = random.randint(7, 10)
 
         for c in range(guardia_sm.medicos_activos):
             enfermero.clasificar(guardia_sm.lista_archivo[c])
             guardia_sm.lista_pacientes.append(guardia_sm.lista_archivo[c])
-            del guardia_sm.lista_archivo[0]
+            guardia_sm.lista_archivo.pop()
 
-        guardia_sm.armar_lista(
-            guardia_sm.lista_pacientes.append(guardia_sm.lista_archivo[c]))
+        guardia_sm.armar_lista(guardia_sm.lista_pacientes)
+        for i in guardia_sm.lista_pacientes:
+            print(i.clasificacion, " ", i.nombre)
 
 
 if __name__ == "__main__":

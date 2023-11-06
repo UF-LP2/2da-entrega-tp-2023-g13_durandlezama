@@ -1,6 +1,7 @@
 from datetime import datetime
 from src.cPaciente import Paciente
 from src.cArbolSintomas import arbol_sintomas
+from src.cArbolSintomas import Node
 
 
 class Enfermero:
@@ -17,26 +18,32 @@ class Enfermero:
         else:
             return False
 
-    def recorrer_arbol(self, paciente: Paciente):
-        """Función para clasificar a los pacientes"""
-        raiz = arbol_sintomas()
+    def recorrer_arbol(self, sintomas: list[str], raiz: Node) -> Node:
+        """Función para recorrer el arbol"""
+        # if raiz.right is None and raiz.left is None:
+        # return raiz
+        # else:
+        # return self.recorrer_arbol(sintomas, raiz.left) if raiz.nombre in sintomas else self.recorrer_arbol(sintomas, raiz.right)
+
         while raiz is not None:
             if self.color(raiz):
                 return raiz
             else:
                 found = False
-                for x in paciente.sintomas:
+                for x in sintomas:
                     if x == raiz.nombre:
                         raiz = raiz.left
                         found = True
+                        sintomas.remove(x)
                         break
-                if not found:
-                    raiz = raiz.right
+            if not found:
+                raiz = raiz.right
         return None  # Si no se encuentra ninguna clasificación adecuada, devuelve None
 
     def clasificar(self, paciente: Paciente):
         """ metodo para clasficar a los pacientes"""
-        nodo = self.recorrer_arbol(paciente)
+        raiz = arbol_sintomas()
+        nodo = self.recorrer_arbol(paciente.sintomas, raiz)
         paciente.clasificacion = nodo.nombre
-        paciente.tiempo_espera = datetime.now()
+        paciente.tiempo_ingreso = datetime.now()
         paciente.set_tiempo_max()

@@ -1,6 +1,6 @@
 """importamos la clase paciente"""
 import csv
-# from src.cMedico import Medico
+from src.cMedico import Medico
 from src.cPaciente import Paciente
 from src.cEnfermero import Enfermero
 
@@ -8,12 +8,13 @@ from src.cEnfermero import Enfermero
 class Guardia:
     """Módulo que proporciona la funcionalidad para la gestión de pacientes en la guardia médica."""
 
-    def __init__(self, nombre, capacidad):
+    def __init__(self, nombre, capacidad, list_medicos: Medico):
         self.nombre = nombre
         self.capacidad = capacidad
         self.lista_archivo: Paciente = []
         self.lista_pacientes: Paciente = []
         self.medicos_activos = 0
+        self.lista_medicos = list_medicos
 
     def leer_archivo(self):
         """leemos el archivo"""
@@ -39,7 +40,7 @@ class Guardia:
 
     def armar_lista(self, pacientes):
         """Función para clasificar y ordenar la lista de pacientes"""
-        if not pacientes:
+        if len(pacientes) <= 1:
             return pacientes
 
         # Dividir la lista en dos mitades
@@ -61,7 +62,7 @@ class Guardia:
 
         # Comparar elementos y combinar las listas ordenadas
         while i < len(izquierda) and j < len(derecha):
-            if izquierda.significado_del_tiempo()[i] <= derecha.significado_del_tiempo()[i]:
+            if izquierda[i].significado_del_tiempo() <= derecha[i].significado_del_tiempo():
                 resultado.append(izquierda[i])
                 i += 1
             else:
@@ -73,3 +74,11 @@ class Guardia:
         resultado.extend(derecha[j:])
 
         return resultado
+
+    def llamar(self):
+        """funcion para llamar a los pacientes"""
+        while len(self.lista_pacientes) != 0:
+            for i in self.lista_medicos:
+                if i.estado:
+                    i.atender(self.lista_pacientes[0])
+                    self.lista_pacientes.pop()

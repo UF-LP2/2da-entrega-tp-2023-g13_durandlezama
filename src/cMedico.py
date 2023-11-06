@@ -1,27 +1,27 @@
 from src.cPaciente import Paciente
+import random
 
 
 class Medico:
     """clase medico"""
 
-    def __init__(self, nombre, estado):
+    def __init__(self, nombre, estado=True):
         self.nombre = nombre
         self.estado = estado
 
     def atender(self, paciente=Paciente):
-        """clase medico"""
-        if paciente.clasificacion == "naranja" or paciente.clasificacion == "amarillo":
-            derivar(paciente)
-            frenar_tiempo()
-        elif paciente.clasificacion == "verde":
-            if paciente.vitales == "grave":
-                derivar(paciente)
-            else:
-                ir_a_casa()
-            frenar_tiempo()
-        else:
-            ir_a_casa()
-            frenar_tiempo()
+        """funcion donde se atienden a los pacientes"""
+        self.estado = False
+        estados = ["internado", "de alta"]
+        if paciente.clasificacion == "naranja":  # como pasa el tiempo
+            print("internado")
+        elif paciente.clasificacion == "amarillo":  # como pasa el tiempo
+            print(random.choice(estados))
+        elif paciente.clasificacion == "verde" or paciente.clasificacion == "azul":  # como pasa el tiempo
+            print("de alta")
+
+        self.estado = True
+        return
 
 
 def derivar(paciente=Paciente):
