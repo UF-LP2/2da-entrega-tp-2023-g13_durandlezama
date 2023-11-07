@@ -40,38 +40,61 @@ class Guardia:
 
     def armar_lista(self, pacientes):
         """Función para clasificar y ordenar la lista de pacientes"""
-        if len(pacientes) <= 1:
+        if len(pacientes) < 2:
             return pacientes
 
         # Dividir la lista en dos mitades
         mitad = len(pacientes) // 2
-        izquierda = pacientes[:mitad]
-        derecha = pacientes[mitad:]
+
+        izquierda = self.armar_lista(pacientes[:mitad])
+        derecha = self.armar_lista(pacientes[mitad:])
 
         # Llamadas recursivas para ordenar las mitades
-        izquierda_ordenada = self.armar_lista(izquierda)
-        derecha_ordenada = self.armar_lista(derecha)
+        # izquierda_ordenada = self.armar_lista(izquierda)
+        # self.armar_listaderecha_ordenada = self.armar_lista(derecha)
 
         # Combinar las mitades ordenadas usando el algoritmo de Merge Sort
-        return self.merge(izquierda_ordenada, derecha_ordenada)
+        return self.merge(izquierda, derecha)
 
     def merge(self, izquierda: Paciente, derecha: Paciente):
         """Función para combinar dos listas ordenadas"""
+        if len(izquierda) < 1:
+            return izquierda
+        elif len(derecha) < 1:
+            return derecha
+
         resultado = []
         i = j = 0
+        total_len = len(izquierda)+len(derecha)
 
         # Comparar elementos y combinar las listas ordenadas
-        while i < len(izquierda) and j < len(derecha):
-            if izquierda[i].significado_del_tiempo() <= derecha[i].significado_del_tiempo():
+        while len(resultado) < total_len:
+
+            if izquierda[i].clasificacion == "rojo":
                 resultado.append(izquierda[i])
                 i += 1
-            else:
+            elif derecha[j].clasificacion == "rojo":
                 resultado.append(derecha[j])
                 j += 1
+            elif izquierda[i].importancia > derecha[i].importancia:
+                if derecha[i].significado_del_tiempo() < 5:
+                    resultado.append(derecha[j])
+                    j += 1
+                else:
+                    resultado.append(izquierda[i])
+                    i += 1
+            else:
+                if izquierda[i].significado_del_tiempo() < 5:
+                    resultado.append(izquierda[i])
+                    i += 1
+                else:
+                    resultado.append(derecha[j])
+                    j += 1
 
-        # Agregar los elementos restantes, si los hay
-        resultado.extend(izquierda[i:])
-        resultado.extend(derecha[j:])
+            if i == len(izquierda) or \
+                    j == len(derecha):
+                resultado.extend(izquierda[i:] or derecha[j:])
+                break
 
         return resultado
 

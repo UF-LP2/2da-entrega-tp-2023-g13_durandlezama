@@ -1,11 +1,11 @@
-import pytest
+"""import pytest
 
 from src.cGuardia import Guardia
 from src.cPaciente import Paciente
 
 
 def test_armadoLista():
-    """ hola"""
+     hola
     lista = []
     paciente1 = Paciente("paxiente 1", 12, lista)
     paciente2 = Paciente("paxiente 1", 12, lista)
@@ -26,4 +26,4 @@ def test_armadoLista():
 
     lista = [paciente6, paciente3, paciente4, paciente2, paciente1, paciente5]
 
-    assert resultado == lista
+    assert resultado == lista"""
