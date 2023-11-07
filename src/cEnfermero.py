@@ -13,6 +13,7 @@ class Enfermero:
 
     def color(self, nodo):
         """def color"""
+
         if nodo.nombre == "rojo" or nodo.nombre == "naranja" or nodo.nombre == "amarillo" or nodo.nombre == "verde" or nodo.nombre == "azul":
             return True
         else:
@@ -20,11 +21,6 @@ class Enfermero:
 
     def recorrer_arbol(self, sintomas: list[str], raiz: Node) -> Node:
         """Función para recorrer el arbol"""
-        # if raiz.right is None and raiz.left is None:
-        # return raiz
-        # else:
-        # return self.recorrer_arbol(sintomas, raiz.left) if raiz.nombre in sintomas else self.recorrer_arbol(sintomas, raiz.right)
-
         while raiz is not None:
             if self.color(raiz):
                 return raiz

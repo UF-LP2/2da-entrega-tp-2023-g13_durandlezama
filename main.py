@@ -1,6 +1,5 @@
 """importo archivos necesarios"""
 import random
-import time
 from src.cGuardia import Guardia
 from src.cEnfermero import Enfermero
 
