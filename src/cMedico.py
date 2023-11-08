@@ -1,11 +1,12 @@
-from src.cPaciente import Paciente
+""" imporar librerias"""
 import random
+from src.cPaciente import Paciente
 
 
 class Medico:
     """clase medico"""
 
-    def __init__(self, nombre, estado=True):
+    def __init__(self, nombre: str, estado=True):
         self.nombre = nombre
         self.estado = estado
 
@@ -14,11 +15,11 @@ class Medico:
         self.estado = False
         estados = ["internado", "de alta"]
         if paciente.clasificacion == "naranja":  # como pasa el tiempo
-            print("internado")
+            return "internado"
         elif paciente.clasificacion == "amarillo":  # como pasa el tiempo
-            print(random.choice(estados))
+            return (random.choice(estados))
         elif paciente.clasificacion == "verde" or paciente.clasificacion == "azul":  # como pasa el tiempo
-            print("de alta")
+            return "de alta"
 
         self.estado = True
         return

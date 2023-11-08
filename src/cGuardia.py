@@ -2,13 +2,12 @@
 import csv
 from src.cMedico import Medico
 from src.cPaciente import Paciente
-from src.cEnfermero import Enfermero
 
 
 class Guardia:
     """Módulo que proporciona la funcionalidad para la gestión de pacientes en la guardia médica."""
 
-    def __init__(self, nombre, capacidad, list_medicos: Medico):
+    def __init__(self, nombre, capacidad, list_medicos: [Medico]):
         self.nombre = nombre
         self.capacidad = capacidad
         self.lista_archivo: Paciente = []
@@ -40,7 +39,7 @@ class Guardia:
 
     def armar_lista(self, pacientes):
         """Función para clasificar y ordenar la lista de pacientes"""
-        if len(pacientes) < 2:
+        if len(pacientes) == 1:
             return pacientes
 
         # Dividir la lista en dos mitades
@@ -49,15 +48,12 @@ class Guardia:
         izquierda = self.armar_lista(pacientes[:mitad])
         derecha = self.armar_lista(pacientes[mitad:])
 
-        # Llamadas recursivas para ordenar las mitades
-        # izquierda_ordenada = self.armar_lista(izquierda)
-        # self.armar_listaderecha_ordenada = self.armar_lista(derecha)
-
         # Combinar las mitades ordenadas usando el algoritmo de Merge Sort
         return self.merge(izquierda, derecha)
 
     def merge(self, izquierda: Paciente, derecha: Paciente):
-        """Función para combinar dos listas ordenadas"""
+        """ funcion de merge """
+
         if len(izquierda) < 1:
             return izquierda
         elif len(derecha) < 1:
@@ -65,43 +61,39 @@ class Guardia:
 
         resultado = []
         i = j = 0
-        total_len = len(izquierda)+len(derecha)
 
         # Comparar elementos y combinar las listas ordenadas
-        while len(resultado) < total_len:
-
-            if izquierda[i].clasificacion == "rojo":
+        while i < len(izquierda) and j < len(derecha):
+            if izquierda[i].importancia > derecha[j].importancia:
                 resultado.append(izquierda[i])
                 i += 1
-            elif derecha[j].clasificacion == "rojo":
+            elif izquierda[i].importancia < derecha[j].importancia:
                 resultado.append(derecha[j])
                 j += 1
-            elif izquierda[i].importancia > derecha[i].importancia:
-                if derecha[i].significado_del_tiempo() < 5:
-                    resultado.append(derecha[j])
-                    j += 1
-                else:
-                    resultado.append(izquierda[i])
-                    i += 1
             else:
-                if izquierda[i].significado_del_tiempo() < 5:
+                if izquierda[i].significado_del_tiempo() < derecha[j].significado_del_tiempo():
                     resultado.append(izquierda[i])
                     i += 1
                 else:
                     resultado.append(derecha[j])
                     j += 1
 
-            if i == len(izquierda) or \
-                    j == len(derecha):
-                resultado.extend(izquierda[i:] or derecha[j:])
-                break
+        # Agregar los elementos restantes, si los hay
+        resultado.extend(izquierda[i:])
+        resultado.extend(derecha[j:])
 
         return resultado
 
     def llamar(self):
-        """funcion para llamar a los pacientes"""
-        while len(self.lista_pacientes) != 0:
-            for i in self.lista_medicos:
-                if i.estado:
-                    i.atender(self.lista_pacientes[0])
-                    self.lista_pacientes.pop()
+        """Función para llamar a los pacientes y asignar a los médicos"""
+        while self.lista_pacientes:
+            for medico in self.lista_medicos:
+                if medico.estado and self.lista_pacientes:
+                    paciente = self.lista_pacientes.pop(0)
+                    resultado_atencion = medico.atender(paciente)
+                    mensaje = f"El paciente {paciente.nombre} está {resultado_atencion}. Fue atendido por el médico {medico.nombre}"
+                    self.listar(mensaje)
+
+    def listar(self, mensaje: str):
+        """Función para imprimir mensajes"""
+        print(mensaje)
