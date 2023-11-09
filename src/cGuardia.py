@@ -17,7 +17,7 @@ class Guardia:
 
     def leer_archivo(self):
         """leemos el archivo"""
-        with open("src/Pacientes.csv", "r") as file:
+        with open(r"src/Pacientes.csv") as file:
             reader = csv.reader(file, delimiter=',')
             next(file, None)
 
@@ -64,14 +64,14 @@ class Guardia:
 
         # Comparar elementos y combinar las listas ordenadas
         while i < len(izquierda) and j < len(derecha):
-            if izquierda[i].importancia > derecha[j].importancia:
+            if izquierda[i].tiempo_esperando() < derecha[j].tiempo_esperando():
                 resultado.append(izquierda[i])
                 i += 1
-            elif izquierda[i].importancia < derecha[j].importancia:
+            elif izquierda[i].tiempo_esperando() > derecha[j].tiempo_esperando():
                 resultado.append(derecha[j])
                 j += 1
             else:
-                if izquierda[i].significado_del_tiempo() < derecha[j].significado_del_tiempo():
+                if izquierda[i].importancia > derecha[j].importancia:
                     resultado.append(izquierda[i])
                     i += 1
                 else:

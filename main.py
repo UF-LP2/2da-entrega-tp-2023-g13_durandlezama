@@ -1,5 +1,6 @@
 """importo archivos necesarios"""
 import random
+from datetime import datetime
 from src.cGuardia import Guardia
 from src.cEnfermero import Enfermero
 from src.cMedico import Medico
@@ -55,20 +56,34 @@ def lista_medicos():
 
 def main() -> None:
     """desarrollo del main"""
+
     lista = []
 
     guardia_sm = Guardia("Triage", 1000, lista_medicos())
     guardia_sm.leer_archivo()
     enfermero = Enfermero("Maria", "5/12")
 
+    horario = datetime.now()
+
     while guardia_sm.lista_archivo:
 
-        guardia_sm.medicos_activos = random.randint(7, 10)
+        if horario.hour >= 23 and horario.hour <= 6:
+            print(" hay un enfermo en la guardia")
+        elif horario.hour >= 6 and horario.hour <= 10:
+            print(" hay dos enfermeros en la guardia")
+        elif horario.hour >= 10 and horario.hour <= 16:
+            print(" hay cinco enfermeros en la guardia")
+        elif horario.hour >= 16 and horario.hour <= 23:
+            print(" hay tres enfermeros en la guardia")
 
-        for c in range(guardia_sm.medicos_activos):
+        pac_llegados = random.randint(
+            0, len(guardia_sm.lista_archivo))
+
+        for c in range(pac_llegados):
             enfermero.clasificar(guardia_sm.lista_archivo[c])
             lista.append(guardia_sm.lista_archivo[c])
-            guardia_sm.lista_archivo.pop()
+
+        del guardia_sm.lista_archivo[:pac_llegados-1]
 
         guardia_sm.lista_pacientes = guardia_sm.armar_lista(lista)
         guardia_sm.llamar()

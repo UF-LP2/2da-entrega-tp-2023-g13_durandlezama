@@ -18,9 +18,12 @@ class Paciente:
 
     def tiempo_esperando(self) -> datetime:
         """funciones de tiempo"""
-        tiempo_actual = datetime.now()
-        tiempo_pasado: datetime = tiempo_actual-self.tiempo_ingreso
-        return tiempo_pasado
+        tiempo_esperando = datetime.now()-self.tiempo_ingreso
+
+        min_transcurridos = tiempo_esperando.total_seconds()/60
+
+        prueba = self.tiempo_max-min_transcurridos
+        return prueba
 
     def significado_del_tiempo(self) -> int:
         """funciones de tiempo"""
