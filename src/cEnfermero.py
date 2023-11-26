@@ -1,7 +1,7 @@
 from datetime import datetime
 from src.cPaciente import Paciente
 from src.cArbolSintomas import arbol_sintomas
-from src.cArbolSintomas import Node
+import binarytree
 
 
 class Enfermero:
@@ -19,27 +19,25 @@ class Enfermero:
         else:
             return False
 
-    def recorrer_arbol(self, sintomas: list[str], raiz: Node) -> Node:
-        """Función para recorrer el arbol"""
-        while raiz is not None:
-            if self.color(raiz):
-                return raiz
-            else:
-                found = False
-                for x in sintomas:
-                    if x == raiz.nombre:
-                        raiz = raiz.left
-                        found = True
-                        sintomas.remove(x)
-                        break
-            if not found:
-                raiz = raiz.right
-        return None  # Si no se encuentra ninguna clasificación adecuada, devuelve None
-
     def clasificar(self, paciente: Paciente):
         """ metodo para clasficar a los pacientes"""
         raiz = arbol_sintomas()
-        nodo = self.recorrer_arbol(paciente.sintomas, raiz)
+        nodo = self.busqueda(paciente.sintomas, raiz, 0)
         paciente.clasificacion = nodo.nombre
         paciente.tiempo_ingreso = datetime.now()
         paciente.set_tiempo_max()
+
+    def busqueda(self, sintomas: str, raiz: binarytree, suma) -> int:
+        """ metodo para recorrer el arbol y encontrar los sintomas"""
+
+        if raiz is None:
+            return 0
+
+        suma_actual = 0
+        if raiz.name in sintomas:
+            suma_actual = raiz.value
+
+        suma_izquierda = self.busqueda(sintomas, raiz.left, suma)
+        suma_derecha = self.busqueda(sintomas, raiz.right, suma)
+
+        return suma_actual + suma_izquierda + suma_derecha
