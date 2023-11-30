@@ -16,10 +16,10 @@ def arbol_sintomas() -> binarytree:
     dolor = node(20, "dolor")
     desmayo = node(25, "desmayo")
     perdida_fuerza = node(15, "perdida de fuerza")
-    golpe = node(35, "golpe")
+    golpe = node(20, "golpe")
     psicologica = node(55, "psicologica")
     fiebre = node(45, "fiebre")
-    picazon = node(10, "picazon")
+    picazon = node(5, "picazon")
     no_urgente = node(0, "no es urgente")
 
     dif_respiar.left = perdida_sangre

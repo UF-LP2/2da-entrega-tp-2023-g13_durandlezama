@@ -23,19 +23,3 @@ class Medico:
 
         self.estado = True
         return
-
-
-def derivar(paciente=Paciente):
-    """clase medico"""
-    paciente.clasificacion = 0
-    # pass
-
-
-def ir_a_casa():
-    """clase medico"""
-    # pass
-
-
-def frenar_tiempo():
-    """clase medico"""
-    # pass

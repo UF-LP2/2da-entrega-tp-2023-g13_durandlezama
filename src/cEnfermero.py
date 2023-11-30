@@ -1,7 +1,15 @@
 from datetime import datetime
+import binarytree
 from src.cPaciente import Paciente
 from src.cArbolSintomas import arbol_sintomas
-import binarytree
+
+colores = {
+    1: "Rojo",
+    2: "Naranja",
+    3: "Amarillo",
+    4: "Verde",
+    5: "Azul"
+}
 
 
 class Enfermero:
@@ -11,33 +19,46 @@ class Enfermero:
         self.nombre = nombre
         self.turno = turno
 
-    def color(self, nodo):
-        """def color"""
+    def clasificar(self, pac: Paciente):
+        """ metodo para clasificar"""
 
-        if nodo.nombre == "rojo" or nodo.nombre == "naranja" or nodo.nombre == "amarillo" or nodo.nombre == "verde" or nodo.nombre == "azul":
-            return True
+        tree = arbol_sintomas()
+        valor = 0
+
+        for i in pac.sintomas:
+            valor = valor + self.busqueda(i, tree)
+
+        if valor >= 90:
+            pac.color = colores.get(1)
+            pac.max_time = 0
+        elif valor < 90 and valor >= 70:
+            pac.color = colores.get(2)
+            pac.max_time = 10
+        elif valor < 70 and valor >= 50:
+            pac.color = colores.get(3)
+            pac.max_time = 60
+        elif valor < 50 and valor >= 30:
+            pac.color = colores.get(4)
+            pac.max_time = 120
         else:
-            return False
+            pac.color = colores.get(5)
+            pac.max_time = 240
 
-    def clasificar(self, paciente: Paciente):
-        """ metodo para clasficar a los pacientes"""
-        raiz = arbol_sintomas()
-        nodo = self.busqueda(paciente.sintomas, raiz, 0)
-        paciente.clasificacion = nodo.nombre
-        paciente.tiempo_ingreso = datetime.now()
-        paciente.set_tiempo_max()
+        pac.tiempo_ingreso = datetime.now()
 
-    def busqueda(self, sintomas: str, raiz: binarytree, suma) -> int:
+        return valor
+
+    def busqueda(self, sintomas: str, raiz) -> int:
         """ metodo para recorrer el arbol y encontrar los sintomas"""
-
         if raiz is None:
             return 0
 
         suma_actual = 0
+
         if raiz.name in sintomas:
             suma_actual = raiz.value
 
-        suma_izquierda = self.busqueda(sintomas, raiz.left, suma)
-        suma_derecha = self.busqueda(sintomas, raiz.right, suma)
+        suma_izquierda = self.busqueda(sintomas, raiz.left)
+        suma_derecha = self.busqueda(sintomas, raiz.right)
 
         return suma_actual + suma_izquierda + suma_derecha
