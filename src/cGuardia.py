@@ -1,5 +1,4 @@
 """importamos la clase paciente"""
-import csv
 from src.cMedico import Medico
 from src.cPaciente import Paciente
 
@@ -14,24 +13,6 @@ class Guardia:
         self.lista_pacientes: Paciente = []
         self.medicos_activos = 0
         self.lista_medicos = list_medicos
-
-    def leer_archivo(self):
-        """leemos el archivo"""
-        with open(r"src/Pacientes.csv") as file:
-            reader = csv.reader(file, delimiter=',')
-            next(file, None)
-
-            for row in reader:
-                nombre = row[0]
-                edad = row[1]
-                sintomas_1 = row[2]
-                sintomas_2 = row[3]
-                sintomas_3 = row[4]
-                sintomas_4 = row[5]
-
-                sintomas = [sintomas_1, sintomas_2, sintomas_3, sintomas_4]
-                aux = Paciente(nombre, edad, sintomas)
-                self.lista_archivo.append(aux)
 
     def set_med_activos(self, cant):
         """set de medicos activos"""

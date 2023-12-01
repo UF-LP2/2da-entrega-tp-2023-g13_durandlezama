@@ -16,23 +16,11 @@ class Paciente:
 
     def tiempo_esperando(self) -> datetime:
         """funciones de tiempo"""
-        tiempo_esperando = datetime.now()-self.tiempo_ingreso
+        time_actual = datetime.now()
+        timepassed: datetime = time_actual - self.tiempo_ingreso
+        return timepassed
 
-        min_transcurridos = tiempo_esperando.total_seconds()/60
-
-        prueba = self.tiempo_max-min_transcurridos
-        return prueba
-
-    def significado_del_tiempo(self) -> int:
-        """funciones de tiempo"""
-        if self.color == "naranja":
-            self.prueba = self.tiempo_max-random.randint(0, 10)
-        elif self.color == "amarillo":
-            self.prueba = self.tiempo_max-random.randint(0, 60)
-        elif self.color == "verde":
-            self.prueba = self.tiempo_max-random.randint(0, 120)
-        elif self.color == "azul":
-            self.prueba = self.tiempo_max-random.randint(0, 240)
-        elif self.color == "rojo":
-            self.prueba = self.tiempo_max
-        return self.prueba
+    def timeremaining(self) -> int:
+        """devuelve el tiempo que le queda al paciente"""
+        minpassed: int = self.tiempo_esperando().seconds
+        return (self.tiempo_max - minpassed)

@@ -1,4 +1,5 @@
 from datetime import datetime
+import time
 import binarytree
 from src.cPaciente import Paciente
 from src.cArbolSintomas import arbol_sintomas
@@ -45,6 +46,7 @@ class Enfermero:
             pac.max_time = 240
 
         pac.tiempo_ingreso = datetime.now()
+        time.sleep(0.1)
 
         return valor
 
