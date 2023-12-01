@@ -9,7 +9,7 @@ def leer_archivo():
 
     lista = []
 
-    with open(r"library/Archivo_pacientes.csv") as file:
+    with open(r"library/Archivo_pacientes .csv") as file:
         reader = csv.reader(file, delimiter=',')
 
         for row in reader:
@@ -51,6 +51,6 @@ def archivo_e():
             nombre = row[0]
             estado = row[1]
 
-            aux = Medico(nombre, estado)
+            aux = Enfermero(nombre, estado)
             lista_enfermeros.append(aux)
     return lista_enfermeros

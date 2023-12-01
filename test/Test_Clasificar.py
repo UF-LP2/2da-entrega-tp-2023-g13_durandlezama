@@ -1,5 +1,4 @@
 """importar clases"""
-import pytest
 from src.cEnfermero import Enfermero
 from src.cPaciente import Paciente
 

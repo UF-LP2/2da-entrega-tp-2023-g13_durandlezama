@@ -1,6 +1,5 @@
 from datetime import datetime
 import time
-import binarytree
 from src.cPaciente import Paciente
 from src.cArbolSintomas import arbol_sintomas
 
