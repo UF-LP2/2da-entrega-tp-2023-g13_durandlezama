@@ -1,6 +1,5 @@
 """importo los archivos necesarios"""
 from datetime import datetime
-import random
 
 
 class Paciente:

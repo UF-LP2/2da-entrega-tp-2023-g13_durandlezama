@@ -14,6 +14,7 @@ class Medico:
         """funcion donde se atienden a los pacientes"""
         self.estado = False
         estados = ["internado", "de alta"]
+
         if paciente.clasificacion == "naranja":  # como pasa el tiempo
             return "internado"
         elif paciente.clasificacion == "amarillo":  # como pasa el tiempo

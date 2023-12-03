@@ -28,13 +28,13 @@ class Enfermero:
         for i in pac.sintomas:
             valor = valor + self.busqueda(i, tree)
 
-        if valor >= 90:
+        if valor >= 100:
             pac.color = colores.get(1)
             pac.max_time = 0
-        elif valor < 90 and valor >= 70:
+        elif valor < 100 and valor >= 75:
             pac.color = colores.get(2)
             pac.max_time = 10
-        elif valor < 70 and valor >= 50:
+        elif valor < 75 and valor >= 50:
             pac.color = colores.get(3)
             pac.max_time = 60
         elif valor < 50 and valor >= 30:
@@ -45,7 +45,7 @@ class Enfermero:
             pac.max_time = 240
 
         pac.tiempo_ingreso = datetime.now()
-        time.sleep(0.1)
+        time.sleep(0.1)  # simulamos el que tarda en clasificar
 
         return valor
 
