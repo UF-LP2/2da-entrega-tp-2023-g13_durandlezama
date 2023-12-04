@@ -19,7 +19,7 @@ class Paciente:
         timepassed: datetime = time_actual - self.tiempo_ingreso
         return timepassed
 
-    def timeremaining(self) -> int:
+    def tiempo_restarnte(self) -> int:
         """devuelve el tiempo que le queda al paciente"""
         minpassed: int = self.tiempo_esperando().seconds
         return (self.tiempo_max - minpassed)

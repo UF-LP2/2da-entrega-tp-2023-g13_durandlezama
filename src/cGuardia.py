@@ -14,67 +14,39 @@ class Guardia:
         self.medicos_activos = 0
         self.lista_medicos = list_medicos
 
-    def set_med_activos(self, cant):
-        """set de medicos activos"""
-        self.medicos_activos = cant
+    def armar_lista(self, pacientes: Paciente):
+        """acomodamos la lista en el orden en como van a ser atendidos"""
+        i: Paciente
+        for i in range(1, len(pacientes)):
+            tempTiempo = pacientes[i].tiempo_restarnte()
+            temp = pacientes[i]
+            pos = self.busqueda_optimo(pacientes, tempTiempo, 0, i) + 1
 
-    def armar_lista(self, pacientes):
-        """Función para clasificar y ordenar la lista de pacientes"""
-        if len(pacientes) == 1:
-            return pacientes
+            for k in range(i, pos, -1):
+                pacientes[k] = pacientes[k-1]
 
-        # Dividir la lista en dos mitades
-        mitad = len(pacientes) // 2
+            pacientes[pos] = temp
 
-        izquierda = self.armar_lista(pacientes[:mitad])
-        derecha = self.armar_lista(pacientes[mitad:])
+    def busqueda_optimo(self, arr: list[Paciente], val, inicioLista: int, finLista: int):
+        """acomodamos la lista en el orden en como van a ser atendidos"""
 
-        # Combinar las mitades ordenadas usando el algoritmo de Merge Sort
-        return self.merge(izquierda, derecha)
+        tEsperaIniLista = arr[inicioLista].tiempo_restarnte()
 
-    def merge(self, izquierda: Paciente, derecha: Paciente):
-        """ funcion de merge """
-
-        if len(izquierda) < 1:
-            return izquierda
-        elif len(derecha) < 1:
-            return derecha
-
-        resultado = []
-        i = j = 0
-
-        # Comparar elementos y combinar las listas ordenadas
-        while i < len(izquierda) and j < len(derecha):
-            if izquierda[i].tiempo_esperando() < derecha[j].tiempo_esperando():
-                resultado.append(izquierda[i])
-                i += 1
-            elif izquierda[i].tiempo_esperando() > derecha[j].tiempo_esperando():
-                resultado.append(derecha[j])
-                j += 1
+        if ((finLista-inicioLista) <= 1):
+            if (val < tEsperaIniLista):
+                return inicioLista - 1
             else:
-                if izquierda[i].importancia > derecha[j].importancia:
-                    resultado.append(izquierda[i])
-                    i += 1
-                else:
-                    resultado.append(derecha[j])
-                    j += 1
+                return inicioLista
+        # Caso base
+        # Si la lista tiene un solo elemento, me fijo si val es mayor o menor y ahi lo agrego
 
-        # Agregar los elementos restantes, si los hay
-        resultado.extend(izquierda[i:])
-        resultado.extend(derecha[j:])
+        # compara tiempos de espera y devuelve posicion en la que se debe insertar el paciente
+        medio = (inicioLista + finLista)//2
+        tEsperaMedio = arr[inicioLista].tiempo_restarnte()
 
-        return resultado
-
-    def llamar(self):
-        """Función para llamar a los pacientes y asignar a los médicos"""
-        while self.lista_pacientes:
-            for medico in self.lista_medicos:
-                if medico.estado and self.lista_pacientes:
-                    paciente = self.lista_pacientes.pop(0)
-                    resultado_atencion = medico.atender(paciente)
-                    mensaje = f"El paciente {paciente.nombre} está {resultado_atencion}. Fue atendido por el médico {medico.nombre}"
-                    self.listar(mensaje)
-
-    def listar(self, mensaje: str):
-        """Función para imprimir mensajes"""
-        print(mensaje)
+        if tEsperaMedio < val:
+            return self.busqueda_optimo(arr, val, medio, finLista)
+        elif tEsperaMedio > val:
+            return self.busqueda_optimo(arr, val, inicioLista, medio)
+        else:
+            return medio

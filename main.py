@@ -22,142 +22,179 @@ def main() -> None:
     ahora = datetime.now().hour
     print("Son las: " + str(ahora) + " hs")
 
-    npac = random.randint(0, 80)
+    npac = random.randint(1, 80)
 
     while npac > 1:
 
         # turno de 2 enfermeros
-        if (datetime.now().hour >= 6 and datetime.now().hour < 10):
+        if (ahora >= 6 and ahora < 10):
 
             pac = lista_pac.pop(0)
             lista_enf[0].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
 
             pac = lista_atencion.pop(0)
             lista_enf[1].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
 
             npac = npac-1
 
             # turno de 5 enfermeros
-        elif (datetime.now().hour >= 10 and datetime.now().hour < 16):
+        elif (ahora >= 10 and ahora < 16):
 
             pac = lista_pac.pop(0)
             lista_enf[0].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
 
             pac = lista_atencion.pop(0)
             lista_enf[1].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
 
             pac = lista_atencion.pop(0)
             lista_enf[2].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
 
             pac = lista_atencion.pop(0)
             lista_enf[3].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
 
             pac = lista_atencion.pop(0)
             lista_enf[4].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
 
             npac = npac-1
 
             # turno de 3 enfermeros
-        elif (datetime.now().hour >= 16 and datetime.now().hour < 23):
+        elif (ahora >= 16 and ahora < 23):
 
             pac = lista_pac.pop(0)
             lista_enf[0].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
 
             pac = lista_atencion.pop(0)
             lista_enf[1].clasificar(pac)
 
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
 
             pac = lista_atencion.pop(0)
             lista_enf[2].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
 
             npac = npac-1
 
             # turno de 1 enfermeros
-        elif (datetime.now().hour >= 23 and datetime.now().hour < 6):
+        elif (ahora == 23 or (ahora > 00 and ahora < 6)):
 
             pac = lista_pac.pop(0)
             lista_enf[0].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
+                print("Atendiendo al Paciente: " + str(pac.nombre) +
+                      "se encuentra en estado critico")
             else:
                 lista_espera.append(pac)
                 # se le asigna un lugar en la lista
-                lista_espera = triage.armar_lista(lista_espera)
+                print("el Paciente: " + str(pac.nombre) +
+                      "es de color: "+pac.color)
+                triage.armar_lista(lista_espera)
             npac = npac-1
 
-    i = 0
-    while i < lista_espera:
+    i: int = 0
+    while i < len(lista_espera):
         paciente_actual = lista_espera.pop(0)  # Obtiene el paciente actual
         print("Atendiendo a: " + str(paciente_actual.nombre))
         lista_doc[0].atender(paciente_actual)
-
-    if len(lista_pac) > 0:
-        for j in range(0, lista_pac):
-            print(lista_pac[j].nombre)
-            print(lista_pac[j].edad)
-            print("\n")
-    else:
-        print("ya se atendieron todos los pacientes!")
 
 
 if __name__ == "__main__":
