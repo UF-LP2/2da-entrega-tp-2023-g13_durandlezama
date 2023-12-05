@@ -1,6 +1,7 @@
 """importo archivos necesarios"""
 import random
 from datetime import datetime
+import time
 from library.leer_archivos import leer_archivo
 from library.leer_archivos import archivo_m
 from library.leer_archivos import archivo_e
@@ -22,7 +23,7 @@ def main() -> None:
     ahora = datetime.now().hour
     print("Son las: " + str(ahora) + " hs")
 
-    npac = random.randint(1, 80)
+    npac = random.randint(40, 80)
 
     while npac > 1:
 
@@ -31,6 +32,7 @@ def main() -> None:
 
             pac = lista_pac.pop(0)
             lista_enf[0].clasificar(pac)
+
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
                 print("Atendiendo al Paciente: " + str(pac.nombre) +
@@ -42,7 +44,7 @@ def main() -> None:
                       "es de color: "+pac.color)
                 triage.armar_lista(lista_espera)
 
-            pac = lista_atencion.pop(0)
+            pac = lista_pac.pop(0)
             lista_enf[1].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
@@ -73,7 +75,7 @@ def main() -> None:
                       "es de color: "+pac.color)
                 triage.armar_lista(lista_espera)
 
-            pac = lista_atencion.pop(0)
+            pac = lista_pac.pop(0)
             lista_enf[1].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
@@ -86,7 +88,7 @@ def main() -> None:
                       "es de color: "+pac.color)
                 triage.armar_lista(lista_espera)
 
-            pac = lista_atencion.pop(0)
+            pac = lista_pac.pop(0)
             lista_enf[2].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
@@ -99,7 +101,7 @@ def main() -> None:
                       "es de color: "+pac.color)
                 triage.armar_lista(lista_espera)
 
-            pac = lista_atencion.pop(0)
+            pac = lista_pac.pop(0)
             lista_enf[3].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
@@ -112,7 +114,7 @@ def main() -> None:
                       "es de color: "+pac.color)
                 triage.armar_lista(lista_espera)
 
-            pac = lista_atencion.pop(0)
+            pac = lista_pac.pop(0)
             lista_enf[4].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
@@ -144,7 +146,7 @@ def main() -> None:
                       "es de color: "+pac.color)
                 triage.armar_lista(lista_espera)
 
-            pac = lista_atencion.pop(0)
+            pac = lista_pac.pop(0)
             lista_enf[1].clasificar(pac)
 
             if pac.color == "Rojo":
@@ -158,7 +160,7 @@ def main() -> None:
                       "es de color: "+pac.color)
                 triage.armar_lista(lista_espera)
 
-            pac = lista_atencion.pop(0)
+            pac = lista_pac.pop(0)
             lista_enf[2].clasificar(pac)
             if pac.color == "Rojo":
                 lista_atencion.append(pac)
@@ -193,8 +195,10 @@ def main() -> None:
     i: int = 0
     while i < len(lista_espera):
         paciente_actual = lista_espera.pop(0)  # Obtiene el paciente actual
-        print("Atendiendo a: " + str(paciente_actual.nombre))
-        lista_doc[0].atender(paciente_actual)
+        print("Atendido a: " + str(paciente_actual.nombre) +
+              ", esta: "+lista_doc[0].atender(paciente_actual))
+        lista_atencion.append(paciente_actual)
+        time.sleep(0.1)
 
 
 if __name__ == "__main__":

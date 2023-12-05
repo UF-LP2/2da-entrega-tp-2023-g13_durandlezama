@@ -45,8 +45,8 @@ class Enfermero:
             pac.max_time = 240
 
         pac.tiempo_ingreso = datetime.now()
-        time.sleep(1)  # simulamos el que tarda en clasificar
 
+        time.sleep(0.1)  # simulamos el que tarda en clasificar
         return valor
 
     def busqueda(self, sintomas: str, raiz) -> int:

@@ -15,11 +15,11 @@ class Medico:
         self.estado = False
         estados = ["internado", "de alta"]
 
-        if paciente.color == "naranja":  # como pasa el tiempo
+        if paciente.color == "Naranja":  # como pasa el tiempo
             return "internado"
-        elif paciente.color == "amarillo":  # como pasa el tiempo
+        elif paciente.color == "Amarillo":  # como pasa el tiempo
             return (random.choice(estados))
-        elif paciente.color == "verde" or paciente.color == "azul":  # como pasa el tiempo
+        elif paciente.color == "Verde" or paciente.color == "Azul":  # como pasa el tiempo
             return "de alta"
 
         self.estado = True
